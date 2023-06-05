@@ -19,6 +19,9 @@ const settings = ["Switch role"];
 
 function Header() {
   const navigate = useNavigate();
+  // const dispatch = useDispatch<AppDispatch>();
+  // dispatch(setToken("data.token"));
+  // dispatch(appStateSetStatus("pending"));
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null

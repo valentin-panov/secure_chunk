@@ -13,14 +13,21 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
+import { setToken } from "../../reducers/token";
 
-const pages = [{ title: "Products", path: "/products" }];
-const settings = ["Switch role"];
+const pages = [
+  { title: "Products", token: ["user", "admin"], path: "/products" },
+  { title: "Users", token: ["admin"], path: "/users" },
+];
+const settings = [{ title: "Switch role", action: "roleSwitch" }];
 
 function Header() {
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  // const dispatch = useDispatch<AppDispatch>();
-  // dispatch(setToken("data.token"));
+  const token = useSelector((store: RootState) => store.token);
+
   // dispatch(appStateSetStatus("pending"));
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -30,6 +37,18 @@ function Header() {
     null
   );
 
+  const actionNavMenu = (route: string) => {
+    navigate(route);
+    handleCloseNavMenu();
+  };
+
+  const actionUserMenu = (action: string) => {
+    if (action === "roleSwitch") {
+      dispatch(setToken(token === "user" ? "admin" : "user"));
+    }
+    handleCloseUserMenu();
+  };
+
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -37,9 +56,8 @@ function Header() {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = (route: string) => {
+  const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-    navigate(route);
   };
 
   const handleCloseUserMenu = () => {
@@ -98,14 +116,16 @@ function Header() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page.title}
-                  onClick={() => handleCloseNavMenu(page.path)}
-                >
-                  <Typography textAlign="center">{page.title}</Typography>
-                </MenuItem>
-              ))}
+              {pages.map((page) =>
+                page.token.includes(token) ? (
+                  <MenuItem
+                    key={page.title}
+                    onClick={() => actionNavMenu(page.path)}
+                  >
+                    <Typography textAlign="center">{page.title}</Typography>
+                  </MenuItem>
+                ) : null
+              )}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -113,7 +133,7 @@ function Header() {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -128,21 +148,26 @@ function Header() {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page.title}
-                onClick={() => handleCloseNavMenu(page.path)}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page.title}
-              </Button>
-            ))}
+            {pages.map((page) =>
+              page.token.includes(token) ? (
+                <Button
+                  key={page.title}
+                  onClick={() => actionNavMenu(page.path)}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page.title}
+                </Button>
+              ) : null
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  alt={token.toUpperCase()}
+                  src="/static/images/avatar/2.jpg"
+                />
               </IconButton>
             </Tooltip>
             <Menu
@@ -162,8 +187,11 @@ function Header() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem
+                  key={setting.title}
+                  onClick={() => actionUserMenu(setting.action)}
+                >
+                  <Typography textAlign="center">{setting.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>

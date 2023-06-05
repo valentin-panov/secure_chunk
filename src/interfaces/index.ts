@@ -1,1 +1,1 @@
-export interface ICard {}
+export * from "./StorageHandlerInterface";

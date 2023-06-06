@@ -16,10 +16,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { setToken } from "../../reducers/token";
+import { BASE_URL } from "../../App";
 
 const pages = [
-  { title: "Products", token: ["user", "admin"], path: "/products" },
-  { title: "Users", token: ["admin"], path: "/users" },
+  { title: "Products", token: ["user", "admin"], path: "products" },
+  { title: "Users", token: ["admin"], path: "users" },
 ];
 const settings = [{ title: "Switch role", action: "roleSwitch" }];
 
@@ -36,7 +37,7 @@ function Header() {
   );
 
   const actionNavMenu = (route: string) => {
-    navigate(route);
+    navigate(BASE_URL + route);
     handleCloseNavMenu();
   };
 
@@ -71,7 +72,7 @@ function Header() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href={"/" + BASE_URL}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -131,7 +132,7 @@ function Header() {
             variant="h5"
             noWrap
             component="a"
-            href="/"
+            href={"/" + BASE_URL}
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },

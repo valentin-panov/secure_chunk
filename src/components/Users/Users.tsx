@@ -15,6 +15,7 @@ import { RootState } from "../../store";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../App";
 
 interface IUser {
   email: string;
@@ -32,7 +33,7 @@ export default function Users() {
 
   useEffect(() => {
     if (token !== "admin") {
-      navigate("/");
+      navigate("/" + BASE_URL);
     }
     setStatus("pending");
     fetch("https://randomuser.me/api/?inc=name,picture,email&results=10")

@@ -6,11 +6,13 @@ import Home from "./components/Home/Home";
 import Products from "./components/Products/Products";
 import Users from "./components/Users/Users";
 
+export const BASE_URL = "secure_chunk/";
+
 function App() {
   return (
     <MainLayout>
       <Routes>
-        <Route path="/">
+        <Route path={BASE_URL}>
           <Route index element={<Home />}></Route>
           <Route path="products" element={<Products />}></Route>
           <Route path="users" element={<Users />}></Route>

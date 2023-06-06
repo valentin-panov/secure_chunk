@@ -10,9 +10,8 @@ import {
   ListItemText,
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store";
-import { setAppState } from "../../reducers/appState";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import { useNavigate } from "react-router-dom";
@@ -25,36 +24,29 @@ interface IUser {
 
 export default function Users() {
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
-  const {
-    appState: { status },
-    token,
-  } = useSelector((store: RootState) => store);
-
+  const { token } = useSelector((store: RootState) => store);
   const [users, setUsers] = useState<IUser[]>([]);
+  const [status, setStatus] = useState<
+    "idle" | "pending" | "success" | "error"
+  >("idle");
+
   useEffect(() => {
     if (token !== "admin") {
       navigate("/");
     }
-
-    dispatch(setAppState("pending"));
-
+    setStatus("pending");
     fetch("https://randomuser.me/api/?inc=name,picture,email&results=10")
       .then((response) => response.json())
       .then((json) => {
         setUsers(json.results);
-        dispatch(setAppState("success"));
+        setStatus("success");
       })
-      .catch(() => dispatch(setAppState("error")));
-  }, [dispatch, navigate, token]);
+      .catch(() => setStatus("error"));
+  }, [navigate, token]);
+
   return (
     <>
       <Typography mt={1}>USERS</Typography>
-      {(status === "pending" || status === "idle") && (
-        <Box>
-          <CircularProgress color="inherit" />
-        </Box>
-      )}
       {status === "success" && (
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
@@ -79,6 +71,11 @@ export default function Users() {
           ))}
         </List>
       )}
+      {(status === "pending" || status === "idle") && (
+        <Box>
+          <CircularProgress color="inherit" />
+        </Box>
+      )}{" "}
       {status === "error" && (
         <Alert severity="error">No data came. Try another time.</Alert>
       )}

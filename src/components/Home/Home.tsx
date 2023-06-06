@@ -1,17 +1,25 @@
 import * as React from "react";
-import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { Divider } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 export default function Home() {
+  const token = useSelector((store: RootState) => store.token);
+
   return (
     <Stack spacing={1}>
-      HOME
-      {/* For variant="text", adjust the height via font-size */}
-      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
-      {/* For other variants, adjust the size with `width` and `height` */}
-      <Skeleton variant="circular" width={40} height={40} />
-      <Skeleton variant="rectangular" width={210} height={60} />
-      <Skeleton variant="rounded" width={210} height={60} />
+      <Typography mt={2}>
+        Try the top right corner menu for switching the role.
+      </Typography>
+      <Divider />
+      <Typography mt={2}>Your role now is [{token}]</Typography>
+      <Divider />
+      <Typography mt={2}>
+        For users are available only PRODUCTS page. However for admins there is
+        USERS page also.
+      </Typography>
     </Stack>
   );
 }

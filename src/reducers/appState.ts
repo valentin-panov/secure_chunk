@@ -15,12 +15,12 @@ export const appStateSlice = createSlice({
   name: "appState",
   initialState,
   reducers: {
-    appStateSetStatus: (state, action: PayloadAction<TStatus>) => {
+    setAppState: (state, action: PayloadAction<TStatus>) => {
       state.status = action.payload;
     },
   },
 });
 
-export const { appStateSetStatus } = appStateSlice.actions;
+export const { setAppState } = appStateSlice.actions;
 
 export const appState = appStateSlice.reducer;

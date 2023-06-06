@@ -15,31 +15,38 @@ import { AppDispatch, RootState } from "../../store";
 import { setAppState } from "../../reducers/appState";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
+import { useNavigate } from "react-router-dom";
 
 interface IUser {
   email: string;
-  id: { name: string; value: string };
   name: { title: string; first: string; last: string };
   picture: { large: string; medium: string; thumbnail: string };
 }
 
 export default function Users() {
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { status } = useSelector((store: RootState) => store.appState);
+  const {
+    appState: { status },
+    token,
+  } = useSelector((store: RootState) => store);
 
   const [users, setUsers] = useState<IUser[]>([]);
   useEffect(() => {
+    if (token !== "admin") {
+      navigate("/");
+    }
+
     dispatch(setAppState("pending"));
 
-    fetch("https://randomuser.me/api/?inc=id,name,picture,email&results=10")
+    fetch("https://randomuser.me/api/?inc=name,picture,email&results=10")
       .then((response) => response.json())
       .then((json) => {
         setUsers(json.results);
-        console.log(json.results);
         dispatch(setAppState("success"));
       })
       .catch(() => dispatch(setAppState("error")));
-  }, [dispatch]);
+  }, [dispatch, navigate, token]);
   return (
     <>
       <Typography mt={1}>USERS</Typography>
@@ -53,7 +60,7 @@ export default function Users() {
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         >
           {users.map((item) => (
-            <ListItem key={item.id.value}>
+            <ListItem key={item.email}>
               <ListItemAvatar>
                 <Avatar
                   alt={`${item.name.first} ${item.name.last}`}

@@ -28,8 +28,6 @@ function Header() {
   const navigate = useNavigate();
   const token = useSelector((store: RootState) => store.token);
 
-  // dispatch(appStateSetStatus("pending"));
-
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );

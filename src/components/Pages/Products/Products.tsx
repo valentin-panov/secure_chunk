@@ -8,8 +8,8 @@ import {
   ImageListItem,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store";
-import { setAppState } from "../../reducers/appState";
+import { AppDispatch, RootState } from "../../../store";
+import { setAppState } from "../../../reducers/appState";
 import Box from "@mui/material/Box";
 
 interface IPhoto {

@@ -11,11 +11,11 @@ import {
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState } from "../../../store";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../App";
+import { BASE_URL } from "../../../App";
 
 interface IUser {
   email: string;

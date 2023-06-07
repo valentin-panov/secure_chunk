@@ -1,8 +1,8 @@
 import { memo, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setToken } from "../../reducers/token";
-import { AppDispatch, RootState } from "../../store";
-import { storageHandlerAdapter } from "../../packages/storage/adapters/StorageHandlerAdapter";
+import { setToken } from "../../../reducers/token";
+import { AppDispatch, RootState } from "../../../store";
+import { storageHandlerAdapter } from "../../../packages/storage/adapters/StorageHandlerAdapter";
 
 export type Props = {
   className?: string;

@@ -14,9 +14,9 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store";
-import { setToken } from "../../reducers/token";
-import { BASE_URL } from "../../App";
+import { AppDispatch, RootState } from "../../../store";
+import { setToken } from "../../../reducers/token";
+import { BASE_URL } from "../../../App";
 
 const pages = [
   { title: "Products", token: ["user", "admin"], path: "products" },

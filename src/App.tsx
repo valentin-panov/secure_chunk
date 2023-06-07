@@ -1,10 +1,10 @@
 import React from "react";
-import MainLayout from "./components/layout/MainLayout";
+import MainLayout from "./components/Molecules/layout/MainLayout";
 import { Route, Routes } from "react-router-dom";
-import Error404 from "./components/Error404/Error404";
-import Home from "./components/Home/Home";
-import Products from "./components/Products/Products";
-import Users from "./components/Users/Users";
+import Error404 from "./components/Molecules/Error404/Error404";
+import Home from "./components/Pages/Home/Home";
+import Products from "./components/Pages/Products/Products";
+import Users from "./components/Pages/Users/Users";
 
 export const BASE_URL = "secure_chunk/";
 

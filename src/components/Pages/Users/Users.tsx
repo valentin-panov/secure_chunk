@@ -10,12 +10,9 @@ import {
   ListItemText,
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../../App";
 
 interface IUser {
   email: string;
@@ -25,16 +22,12 @@ interface IUser {
 
 export default function Users() {
   const navigate = useNavigate();
-  const { token } = useSelector((store: RootState) => store);
   const [users, setUsers] = useState<IUser[]>([]);
   const [status, setStatus] = useState<
     "idle" | "pending" | "success" | "error"
   >("idle");
 
   useEffect(() => {
-    if (token !== "admin") {
-      navigate("/" + BASE_URL);
-    }
     setStatus("pending");
     fetch("https://randomuser.me/api/?inc=name,picture,email&results=10")
       .then((response) => response.json())
@@ -43,7 +36,7 @@ export default function Users() {
         setStatus("success");
       })
       .catch(() => setStatus("error"));
-  }, [navigate, token]);
+  }, [navigate]);
 
   return (
     <>

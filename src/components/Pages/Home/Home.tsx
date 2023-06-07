@@ -10,13 +10,12 @@ export default function Home() {
 
   return (
     <Stack spacing={1}>
-      <Typography mt={2}>
+      <Typography mt={1}>HOME PAGE</Typography> <Divider />
+      <Typography mt={1}>
         Try the top right corner menu for switching the role.
       </Typography>
-      <Divider />
-      <Typography mt={2}>Your role now is [{token}]</Typography>
-      <Divider />
-      <Typography mt={2}>
+      <Typography mt={1}>Your role now is [{token}]</Typography>
+      <Typography mt={1}>
         For users are available only PRODUCTS page. However for admins there is
         USERS page also.
       </Typography>

@@ -12,7 +12,6 @@ import {
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
-import { useNavigate } from "react-router-dom";
 
 interface IUser {
   email: string;
@@ -21,7 +20,6 @@ interface IUser {
 }
 
 export default function Users() {
-  const navigate = useNavigate();
   const [users, setUsers] = useState<IUser[]>([]);
   const [status, setStatus] = useState<
     "idle" | "pending" | "success" | "error"
@@ -36,7 +34,7 @@ export default function Users() {
         setStatus("success");
       })
       .catch(() => setStatus("error"));
-  }, [navigate]);
+  }, []);
 
   return (
     <>

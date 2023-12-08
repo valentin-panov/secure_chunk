@@ -3,6 +3,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/b15eamwtlcqhwsed?svg=true)](https://ci.appveyor.com/project/vapanov/secure-chunk)
 
 SECURED WEB VERSION: https://valentin-panov.github.io/secure_chunk/
+
 Paired insecure repo: https://valentin-panov.github.io/insecure_chunk/
 
 Disclaimer. That article describes client-side protection only. That's obvious, that backend must not send data in
